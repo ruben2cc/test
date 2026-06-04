@@ -20,7 +20,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                echo 'Compilando aplicación... que no es maven jeje..2'
+                echo 'Compilando aplicación... que no es maven jeje..2g'
                 sshagent(credentials: ['server-key-id']) {
                     sh '''
                         whoami
