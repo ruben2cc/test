@@ -21,6 +21,13 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Compilando aplicación... que no es maven jeje...'
+                sshagent(credentials: ['server-key-id']) {
+                    sh 
+                    '''
+                        whoami
+                        pwd
+                    '''
+                }
                 sh 'mvn clean compile'
             }
         }
