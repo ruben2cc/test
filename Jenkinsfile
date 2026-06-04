@@ -20,7 +20,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                echo 'Compilando aplicación...'
+                echo 'Compilando aplicación... que no es maven jeje...'
                 sh 'mvn clean compile'
             }
         }
