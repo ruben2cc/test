@@ -44,7 +44,7 @@ pipeline {
             }
         }
 
-        stage('Archive') {
+        stage('Archivar') {
             steps {
                 echo 'Guardando artefacto...'
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
