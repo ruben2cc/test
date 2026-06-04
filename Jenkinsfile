@@ -22,8 +22,7 @@ pipeline {
             steps {
                 echo 'Compilando aplicación... que no es maven jeje...'
                 sshagent(credentials: ['server-key-id']) {
-                    sh 
-                    '''
+                    sh '''
                         whoami
                         pwd
                     '''
