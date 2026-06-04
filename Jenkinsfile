@@ -23,8 +23,8 @@ pipeline {
                 echo 'Compilando aplicación... que no es maven jeje..2gm'
                 sshagent(credentials: ['server-key-id']) {
                     sh '''
-                        whoami
-                        pwd
+                        ssh ruben2cc@34.70.105.81 "whoami"
+                        ssh ruben2cc@34.70.105.81 "pwd"
                     '''
                 }
                 sh 'mvn clean compile'
