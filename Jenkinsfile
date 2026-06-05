@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    
+    parameters {
+        choice(name: 'AMBIENTE', choices: ['DEV', 'QA', 'PROD'])
+    }
 
     stages {
         stage('clone') {
@@ -16,7 +20,7 @@ pipeline {
 
         stage('deploy') {
             steps {
-                echo 'Se ha compilado el proyecto'
+                echo "Se despliega el servicio al servidor: ${params.AMBIENTE}"
             }
         }
     }
