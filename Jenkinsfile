@@ -1,74 +1,23 @@
 pipeline {
     agent any
 
-    tools {
-        maven 'Maven 3'
-        jdk 'JDK 17'
-    }
-
-    environment {
-        APP_NAME = 'mi-app'
-    }
-
     stages {
-        stage('Checkout') {
+        stage('clone') {
             steps {
-                echo 'Descargando código...'
                 checkout scm
             }
         }
 
-        stage('Build') {
+        stage('compile') {
             steps {
-                echo 'Compilando aplicación... que no es maven jeje..2gm'
-                sshagent(credentials: ['server-key-id']) {
-                    sh '''
-                        ssh ruben2cc@34.70.105.81 "whoami"
-                        ssh ruben2cc@34.70.105.81 "pwd"
-                    '''
-                }
-                sh 'mvn clean compile'
+                sh 'mvn clean package'
             }
         }
 
-        stage('Test') {
+        stage('deploy') {
             steps {
-                echo 'Ejecutando pruebas...'
-                sh 'mvn test'
+                echo 'Se ha compilado el proyecto'
             }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                }
-            }
-        }
-
-        stage('Package') {
-            steps {
-                echo 'Generando artefacto...'
-                sh 'mvn package -DskipTests'
-            }
-        }
-
-        stage('Archivar') {
-            steps {
-                echo 'Guardando artefacto...'
-                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-            }
-        }
-    }
-
-    post {
-        success {
-            echo "Pipeline ejecutado correctamente para ${APP_NAME}"
-        }
-
-        failure {
-            echo "El pipeline falló. Revisa los logs."
-        }
-
-        always {
-            echo 'Pipeline finalizado.'
         }
     }
 }
