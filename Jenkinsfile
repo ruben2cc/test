@@ -26,6 +26,7 @@ pipeline {
         stage('deploy') {
             steps {
                 echo "Se despliega el servicio al servidor: ${params.AMBIENTE}"
+                echo "El nombre del job es: ${env.JOB_NAME}"
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
         }
