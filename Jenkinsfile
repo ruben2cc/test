@@ -26,6 +26,7 @@ pipeline {
         stage('deploy') {
             steps {
                 echo "Se despliega el servicio al servidor: ${params.AMBIENTE}"
+                archiveArtifact artifacts: 'target/*.jar', fingerprint: true
             }
         }
     }
