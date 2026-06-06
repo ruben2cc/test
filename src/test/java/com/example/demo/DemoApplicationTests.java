@@ -15,4 +15,9 @@ class DemoApplicationTests {
 	void sumaTest() {
 		Assertions.assertEquals(5, 2+3);
 	}
+
+	@Test
+	void loginTest() {
+		Assertions.assertTrue(true);
+	}
 }
