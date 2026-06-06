@@ -13,6 +13,6 @@ class DemoApplicationTests {
 
 	@Test
 	void sumaTest() {
-		Assertions.assertEquals(5, 2+2);
+		Assertions.assertEquals(5, 2+3);
 	}
 }
