@@ -16,13 +16,11 @@ pipeline {
                 checkout scm
             }
         }
-
         stage('compile') {
             steps {
                 sh 'mvn clean package'
             }
         }
-
         stage('deploy a DEV') {
             when {
                 environment name: 'AMBIENTE', value: 'DEV'
@@ -33,17 +31,24 @@ pipeline {
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
             }
         }
-
         stage('deploy a PROD') {
-                    when {
-                        environment name: 'AMBIENTE', value: 'PROD'
-                    }
-                    steps {
-                        echo "Se despliega el servicio al servidor: ${params.AMBIENTE}"
-                        echo "El nombre del job es: ${env.JOB_NAME}"
-                        archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-                    }
-                }
+            when {
+                environment name: 'AMBIENTE', value: 'PROD'
+            }
+            steps {
+                echo "Se despliega el servicio al servidor: ${params.AMBIENTE}"
+                echo "El nombre del job es: ${env.JOB_NAME}"
+                archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
+            }
+        }
+        stage('Cuando es Pull Request') {
+            when {
+                changeRequest()
+            }
+            steps {
+                echo "Se ejecutó el stage de Pull request"
+            }
+        }
     }
 
     post {
