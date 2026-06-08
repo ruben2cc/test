@@ -29,7 +29,7 @@ pipeline {
                 echo "Se despliega el servicio al servidor: ${params.AMBIENTE}"
                 echo "El nombre del job es: ${env.JOB_NAME}"
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-                sshagent(credentials:[server-key-id]) {
+                sshagent(credentials:['server-key-id']) {
                     sh '''
                         ssh ruben2cc@34.70.105.81 "
                             pwd
