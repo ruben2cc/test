@@ -37,9 +37,20 @@ pipeline {
                 echo "Se despliega el servicio al servidor: ${params.AMBIENTE}"
                 echo "El nombre del job es: ${env.JOB_NAME}"
                 archiveArtifacts artifacts: 'target/*.jar', fingerprint: true
-                sshagent(credentials:['server-key-id']) {
-                    sh '''
-                        ssh ruben2cc@34.70.105.81 "
+//                 sshagent(credentials:['server-key-id']) {
+//                     sh '''
+//                         ssh ruben2cc@34.70.105.81 "
+//                             pwd
+//                             sudo systemctl status huaspro || true
+//                         "
+//                     '''
+//                 }
+                withCredentials([
+                    sshUserPrivateKey(credentialsId: 'server-key-id', keyFileVariable: 'SSH_KEY', usernameVariable: 'SSH_USER'),
+                    string(credentialsId: 'server-ip', variable: 'SERVER_IP')
+                ]) {
+                    ssh '''
+                        ssh -i "$SSH_KEY" "$SSH_USER@$SERVER_IP" "
                             pwd
                             sudo systemctl status huaspro || true
                         "
