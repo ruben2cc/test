@@ -49,7 +49,7 @@ pipeline {
                     sshUserPrivateKey(credentialsId: 'server-key-id', keyFileVariable: 'SSH_KEY', usernameVariable: 'SSH_USER'),
                     string(credentialsId: 'server-ip', variable: 'SERVER_IP')
                 ]) {
-                    ssh '''
+                    sh '''
                         ssh -i "$SSH_KEY" "$SSH_USER@$SERVER_IP" "
                             pwd
                             sudo systemctl status huaspro || true
