@@ -10,7 +10,7 @@ pipeline {
         timeout(time: '30', unit: 'MINUTES')
         disableConcurrentBuilds()
         buildDiscard(logRotate(numToKeepStr: '10', artifactsNumToKeepStr: '5')
-        timestamp()
+        timestamps()
         skipDefaultCheckout()
     }
 
