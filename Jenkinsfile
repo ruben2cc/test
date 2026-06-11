@@ -6,6 +6,14 @@ pipeline {
         maven 'Maven 3'
     }
 
+    options {
+        timeout(time: '30', unit: 'MINUTES')
+        disableConcurrentBuilds()
+        buildDiscard(logRotate(numToKeepStr: '10', artifactsNumToKeepStr: '5')
+        timestamp()
+        skipDefaultCheckout()
+    }
+
     parameters {
         choice(name: 'AMBIENTE', choices: ['DEV', 'QA', 'PROD'])
     }
